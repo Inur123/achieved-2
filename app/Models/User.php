@@ -19,7 +19,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id',  // Use role_id, not role
+        'role_id',
+        'google_id',
+        'google_token',
+        'google_refresh_token',
     ];
 
     /**

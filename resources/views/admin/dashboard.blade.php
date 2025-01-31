@@ -8,6 +8,7 @@
 @endsection
 @section('content')
     <div class="container-fluid">
+
         <!--  Row 1 -->
         <div class="row">
             <h1>Welcome, {{ Auth::user()->name }}!</h1>

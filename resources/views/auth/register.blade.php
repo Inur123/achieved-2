@@ -27,20 +27,48 @@
                                         alt="">
                                 </a>
                                 <p class="text-center">Your Social Campaigns</p>
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-                                @if (session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
+                                <div id="toastContainer"
+                                    style="position: fixed; top: 10px; right: 10px; z-index: 1050;">
+                                    @if ($errors->any())
+                                        <div class="toast align-items-center text-white bg-danger border-0 show"
+                                            role="alert" aria-live="assertive" aria-atomic="true">
+                                            <div class="d-flex">
+                                                <div class="toast-body">
+                                                    @foreach ($errors->all() as $error)
+                                                        <p>{{ $error }}</p>
+                                                    @endforeach
+                                                </div>
+                                                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                                    data-bs-dismiss="toast" aria-label="Close"></button>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if (session('error'))
+                                        <div class="toast align-items-center text-white bg-danger border-0 show"
+                                            role="alert" aria-live="assertive" aria-atomic="true">
+                                            <div class="d-flex">
+                                                <div class="toast-body">
+                                                    {{ session('error') }}
+                                                </div>
+                                                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                                    data-bs-dismiss="toast" aria-label="Close"></button>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if (session('success'))
+                                        <div class="toast align-items-center text-white bg-success border-0 show"
+                                            role="alert" aria-live="assertive" aria-atomic="true">
+                                            <div class="d-flex">
+                                                <div class="toast-body">
+                                                    {{ session('success') }}
+                                                </div>
+                                                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                                    data-bs-dismiss="toast" aria-label="Close"></button>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
-                                @endif
                                 <form action="{{ route('register.submit') }}" method="POST">
                                     @csrf
                                     <div class="mb-3">
@@ -69,7 +97,7 @@
                                         <span class="mx-2 text-muted">atau</span>
                                         <hr class="flex-grow-1">
                                     </div>
-                                    <a href="#" class="btn btn-danger w-100 py-8 fs-4 mb-2 rounded-2">
+                                    <a href="auth/redirect" class="btn btn-danger w-100 py-8 fs-4 mb-2 rounded-2">
                                         <i class="fab fa-google me-2"></i> Daftar dengan Google
                                     </a>
                                     <div class="d-flex align-items-center justify-content-center">

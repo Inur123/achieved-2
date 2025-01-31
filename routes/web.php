@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialiteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -20,3 +21,8 @@ Route::get('user/dashboard', function () {
 Route::get('admin/dashboard', function () {
     return view('admin.dashboard');
 })->name('admin.dashboard')->middleware('auth');
+
+//laravel-socialite
+Route::get('/auth/redirect',[SocialiteController::class,'redirect']);
+
+Route::get('/auth/google/callback',[SocialiteController::class,'callback']);
