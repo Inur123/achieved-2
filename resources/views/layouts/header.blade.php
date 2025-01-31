@@ -18,11 +18,26 @@
                 <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank"
                     class="btn btn-primary">Download Free</a>
                 <li class="nav-item dropdown">
-                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('template/assets/images/profile/user-1.jpg') }}" alt=""
-                            width="35" height="35" class="rounded-circle">
-                    </a>
+                    @php
+    $user = Auth::user(); // Get the authenticated user
+    $userName = $user->name; // Get the user's name
+    $initials = strtoupper(implode('', array_map(function($word) { return $word[0]; }, explode(' ', $userName)))); // Generate initials from the name
+    $initials = substr($initials, 0, 2); // Get only the first 2 characters of initials
+    $imageUrl = $user->profile_image ? asset('storage/'.$user->profile_image) : asset('template/assets/images/profile/user-1.jpg'); // Use the profile image or fallback
+@endphp
+
+<a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
+    @if($user->profile_image && file_exists(public_path('storage/'.$user->profile_image)))
+        <!-- Display user's image if exists -->
+        <img src="{{ $imageUrl }}" alt="Profile Image" width="35" height="35" class="rounded-circle">
+    @else
+        <!-- Fallback to initials if no image exists -->
+        <div style="width: 35px; height: 35px; background-color: #ccc; color: #fff; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+            {{ $initials }}
+        </div>
+    @endif
+</a>
+
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
                             <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
