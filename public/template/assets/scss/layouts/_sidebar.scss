@@ -88,13 +88,14 @@
       }
 
       .sidebar-link.active {
+        background-color: $primary;
+        color: $white;
+
         &:hover {
-          &.has-arrow::after {
-            border-color: $white;
-          }
+          background-color: rgba($primary, 0.1);
+          color: $primary;
         }
       }
-
       .link-disabled {
         opacity: $link-disabled;
       }

@@ -30,6 +30,8 @@ class SocialiteController extends Controller
             // Jika pengguna sudah terdaftar, login ke aplikasi
             Auth::login($existingUser);
 
+            session()->flash('success', 'Login berhasil!');
+
             // Arahkan berdasarkan role_id
             if ($existingUser->role_id == 1) {
                 return redirect()->route('admin.dashboard'); // Halaman dashboard admin
@@ -52,6 +54,7 @@ class SocialiteController extends Controller
         // Login pengguna yang baru dibuat
         Auth::login($user);
 
+        session()->flash('success', 'Login berhasil!');
         // Arahkan berdasarkan role_id
         if ($user->role_id == 1) {
             return redirect()->route('admin.dashboard'); // Halaman dashboard admin

@@ -1,3 +1,9 @@
+<style>
+    .app-header {
+    border-bottom: 1px solid #007bff;
+}
+</style>
+
 <header class="app-header">
     <nav class="navbar navbar-expand-lg navbar-light">
         <ul class="navbar-nav">
@@ -15,8 +21,7 @@
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank"
-                    class="btn btn-primary">Download Free</a>
+                <span id="current-time" class="text-primary"></span>
                 <li class="nav-item dropdown">
                     @php
     $user = Auth::user(); // Get the authenticated user
@@ -72,4 +77,30 @@
     document.getElementById('logout-link').addEventListener('click', function() {
         document.getElementById('logout-form').submit();
     });
+</script>
+<script>
+    function updateTime() {
+        var now = new Date();
+        var options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+        var formattedTime = now.toLocaleString('id-ID', options);
+        var timeParts = formattedTime.split(' ');
+
+        // Menambahkan '|' setelah tahun (elemen ke-3)
+        timeParts[3] += ' |';
+
+        formattedTime = timeParts.join(' ');
+
+        document.getElementById("current-time").innerText = formattedTime;
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime(); // Inisialisasi waktu saat halaman dimuat
 </script>

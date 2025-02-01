@@ -71,6 +71,9 @@ class AuthController extends Controller
     if (Auth::attempt($credentials)) {
         $user = Auth::user();
 
+        // Set alert message
+        session()->flash('success', 'Login berhasil!');
+
         // Check role_id (1 for admin, 2 for user)
         if ($user->role_id == 1) {
             return redirect()->route('admin.dashboard');
@@ -84,11 +87,12 @@ class AuthController extends Controller
     if (!User::where('email', $request->email)->exists()) {
         return back()->with('error', 'Email tidak ditemukan.');
     } elseif (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-        return back()->with('error', 'password salah.');
+        return back()->with('error', 'Password salah.');
     }
 
     return back()->with('error', 'Invalid credentials');
 }
+
 
 
 
