@@ -33,19 +33,26 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Produk</th>
-                            <th>Status</th>
-                            <th>Bukti Pembayaran</th>
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Nomor Telepon</th>
+                            <th>Produk</th>
+                            <th>Harga</th>
+                            <th>Tanggal Transaksi</th>
+                            <th>Status</th>
+                            <th>Bukti Pembayaran</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($transactions as $transaction)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $transaction->name }}</td>
+                                <td>{{ $transaction->email }}</td>
+                                <td>{{ $transaction->phone_number }}</td>
                                 <td>{{ $transaction->product->name }}</td>
+                                <td>Rp {{ number_format($transaction->product->price, 0, ',', '.') }}</td>
+                                <td>{{ $transaction->created_at->format('d-m-Y H:i') }}</td> <!-- Tanggal transaksi -->
                                 <td>
                                     @if ($transaction->status == 'pending')
                                         <span class="badge bg-warning">Pending</span>
@@ -56,9 +63,9 @@
                                     @endif
                                 </td>
                                 <td><a href="{{ Storage::url($transaction->payment_proof) }}" target="_blank">Lihat Bukti</a></td>
-                                <td>{{ $transaction->name }}</td>
-                                <td>{{ $transaction->email }}</td>
-                                <td>{{ $transaction->phone_number }}</td>
+
+
+
                             </tr>
                         @endforeach
                     </tbody>

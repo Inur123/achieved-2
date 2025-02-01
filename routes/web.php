@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ApprovedTransactionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\AuthController;
@@ -9,7 +8,9 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\AdminTransaksiController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\ApprovedTransactionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,18 +30,16 @@ Route::middleware('auth')->group(function () {
     Route::get('admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
-
-
 });
 
 Route::prefix('admin')->middleware('auth')->group(function () {
-  // Authors Routes
-  Route::get('/authors', [AuthorController::class, 'index'])->name('blog.authors.index');
-  Route::get('/authors/create', [AuthorController::class, 'create'])->name('blog.authors.create');
-  Route::post('/authors', [AuthorController::class, 'store'])->name('blog.authors.store');
-  Route::get('/authors/{author}/edit', [AuthorController::class, 'edit'])->name('blog.authors.edit');
-  Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('blog.authors.update');
-  Route::delete('/authors/{author}', [AuthorController::class, 'destroy'])->name('blog.authors.destroy');
+    // Authors Routes
+    Route::get('/authors', [AuthorController::class, 'index'])->name('blog.authors.index');
+    Route::get('/authors/create', [AuthorController::class, 'create'])->name('blog.authors.create');
+    Route::post('/authors', [AuthorController::class, 'store'])->name('blog.authors.store');
+    Route::get('/authors/{author}/edit', [AuthorController::class, 'edit'])->name('blog.authors.edit');
+    Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('blog.authors.update');
+    Route::delete('/authors/{author}', [AuthorController::class, 'destroy'])->name('blog.authors.destroy');
 
     // Categories Routes
     Route::get('/categories', [CategoryController::class, 'index'])->name('blog.categories.index');
@@ -73,8 +72,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('approved_transactions/{id}', [ApprovedTransactionController::class, 'destroy'])->name('approved_transactions.destroy');
     Route::get('approved_transactions/{id}', [ApprovedTransactionController::class, 'show'])->name('approved_transactions.show');
 
-
-
+    //transaksi
+    Route::get('transaksi', [AdminTransaksiController::class, 'index'])->name('admin.transaksi.index');
+    Route::get('transaksi/{userId}/detail', [AdminTransaksiController::class, 'showDetail'])->name('admin.transaksi.detail');
+    Route::delete('transaksi/{transaction}', [AdminTransaksiController::class, 'destroy'])->name('admin.transaksi.destroy');
 });
 
 
@@ -84,12 +85,9 @@ Route::prefix('user')->middleware('auth')->group(function () {
     Route::get('transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
     Route::post('transactions', [TransactionController::class, 'store'])->name('transactions.store');
     Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
-
 });
 
 //laravel-socialite
-Route::get('/auth/redirect',[SocialiteController::class,'redirect']);
+Route::get('/auth/redirect', [SocialiteController::class, 'redirect']);
 
-Route::get('/auth/google/callback',[SocialiteController::class,'callback']);
-
-
+Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);

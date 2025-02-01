@@ -74,7 +74,10 @@
                             <span class="hide-menu">Tags</span>
                         </a>
                     </li>
-
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Layanan</span>
+                    </li>
                     <li class="sidebar-item {{ Request::is('products.index') ? 'active' : '' }}">
                         <a class="sidebar-link {{ request()->routeIs('products.*') ? 'active' : '' }}"
                             href="{{ route('products.index') }}" aria-expanded="false">
@@ -90,7 +93,17 @@
                             <span>
                                 <i class="ti ti-credit-card"></i> <!-- Icon for Approved Transaction -->
                             </span>
-                            <span class="hide-menu">Approved Transactions</span>
+                            <span class="hide-menu">Approved Transaksi</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item {{ Request::is('admin/transaksi*') ? 'active' : '' }}">
+                        <a class="sidebar-link {{ request()->routeIs('admin.transaksi.*') ? 'active' : '' }}"
+                            href="{{ route('admin.transaksi.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-credit-card"></i> <!-- Icon for Admin Transaksi -->
+                            </span>
+                            <span class="hide-menu">Admin Transaksi</span>
                         </a>
                     </li>
 

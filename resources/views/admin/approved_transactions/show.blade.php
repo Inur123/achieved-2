@@ -9,50 +9,6 @@
     @include('layouts.header')
 @endsection
 @section('content')
-    {{-- Toast Notification --}}
-    <div id="toastContainer" style="position: fixed; top: 10px; right: 10px; z-index: 1050;">
-        @if ($errors->any())
-            <div class="toast align-items-center text-white bg-danger border-0 show" role="alert" aria-live="assertive"
-                aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        @foreach ($errors->all() as $error)
-                            <p>{{ $error }}</p>
-                        @endforeach
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
-
-        @if (session('error'))
-            <div class="toast align-items-center text-white bg-danger border-0 show" role="alert" aria-live="assertive"
-                aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        {{ session('error') }}
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
-
-        @if (session('success'))
-            <div class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive"
-                aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        {{ session('success') }}
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
-    </div>
-
     {{-- Content --}}
     <div class="container-fluid">
         <div class="row">
@@ -65,9 +21,16 @@
                         <p><strong>Nama:</strong> {{ $transaction->name }}</p>
                         <p><strong>Email:</strong> {{ $transaction->email }}</p>
                         <p><strong>Produk:</strong> {{ $transaction->product->name }}</p>
+                        <p><strong>Harga:</strong> Rp {{ number_format($transaction->product->price, 0, ',', '.') }}</p>
+                        <p><strong>Tanggal Transaksi:</strong> {{ $transaction->created_at->translatedFormat('l, d F Y | H.i.s') }}</p>
+
                         <p><strong>Status:</strong> {{ $transaction->status }}</p>
                         <p><strong>Catatan Approval:</strong> {{ $transaction->approval_notes }}</p>
-
+                        <p><strong>Bukti Pembayaran:</strong>
+                            <a href="{{ asset('storage/'.$transaction->payment_proof) }}" target="_blank">
+                                <img src="{{ asset('storage/'.$transaction->payment_proof) }}" alt="Payment Proof" width="100">
+                            </a>
+                        </p>
                         @if ($transaction->status === 'pending')
                             <form action="{{ route('approved_transactions.approve', $transaction->id) }}" method="POST">
                                 @csrf

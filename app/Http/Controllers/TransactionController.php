@@ -21,7 +21,7 @@ class TransactionController extends Controller
 
     public function create()
     {
-        $products = Product::all();
+        $products = Product::where('status', true)->get();
         return view('user.transactions.create', compact('products'));
     }
 

@@ -9,13 +9,51 @@
 
     <link rel="stylesheet" href="{{ asset('template/assets/css/styles.min.css') }}" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-</head>
+    <style>
+        /* Loading screen styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #5D87FF;
+            /* Green success color */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
 </head>
 
 <body>
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
+        <div id="loading-screen">
+            <div class="spinner"></div>
+        </div>
         <div
             class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
             <div class="d-flex align-items-center justify-content-center w-100">
@@ -128,6 +166,13 @@
                 eyeIcon.classList.remove("fa-eye");
                 eyeIcon.classList.add("fa-eye-slash");
             }
+        });
+    </script>
+
+    <script>
+        // Hide loading screen once the page is fully loaded
+        window.addEventListener("load", function() {
+            document.getElementById("loading-screen").style.display = "none";
         });
     </script>
 </body>

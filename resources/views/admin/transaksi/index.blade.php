@@ -65,34 +65,22 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
+                                        <th>Nama Pengguna</th>
                                         <th>Email</th>
-                                        <th>Produk</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Total Transaksi</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($transactions as $transaction)
+                                    @foreach($users as $user)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $transaction->name }}</td>
-                                            <td>{{ $transaction->email }}</td>
-                                            <td>{{ $transaction->product->name }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->transactions->count() }}</td>
                                             <td>
-                                                @if ($transaction->status === 'pending')
-                                                    <span class="badge bg-warning text-dark">Pending</span>
-                                                @elseif ($transaction->status === 'paid')
-                                                    <span class="badge bg-success">Paid</span>
-                                                @elseif ($transaction->status === 'approved')
-                                                    <span class="badge bg-info">Approved</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <!-- Tombol Detail -->
-                                                <a href="{{ route('approved_transactions.show', $transaction->id) }}" class="btn btn-outline-info">Detail</a>
-                                                <!-- Tombol Delete -->
-
+                                                <!-- Tombol untuk melihat detail transaksi pengguna -->
+                                                <a href="{{ route('admin.transaksi.detail', $user->id) }}"  class="btn btn-outline-primary">Detail Transaksi</a>
                                             </td>
                                         </tr>
                                     @endforeach

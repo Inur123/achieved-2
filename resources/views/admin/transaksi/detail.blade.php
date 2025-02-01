@@ -65,40 +65,45 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Produk</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Nama </th>
+                                        <th>Email </th>
+                                        <th>No Hp</th>
+                                        <th>Nama Produk</th>
+                                        <th>Tanggal Transaksi</th>
+                                        <th>Status Pembayaran</th>
+                                        <th>Bukti Pembayaran</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     @foreach ($transactions as $transaction)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $transaction->name }}</td>
                                             <td>{{ $transaction->email }}</td>
+                                            <td>{{ $transaction->phone_number }}</td>
                                             <td>{{ $transaction->product->name }}</td>
-                                            <td>
-                                                @if ($transaction->status === 'pending')
-                                                    <span class="badge bg-warning text-dark">Pending</span>
-                                                @elseif ($transaction->status === 'paid')
-                                                    <span class="badge bg-success">Paid</span>
-                                                @elseif ($transaction->status === 'approved')
-                                                    <span class="badge bg-info">Approved</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <!-- Tombol Detail -->
-                                                <a href="{{ route('approved_transactions.show', $transaction->id) }}" class="btn btn-outline-info">Detail</a>
-                                                <!-- Tombol Delete -->
+                                            <td>{{ $transaction->created_at->translatedFormat('l, d F Y | H.i.s') }}</td>
 
+                                            <td>{{ $transaction->status }}</td>
+                                            <td><img src="{{ asset('storage/' . $transaction->payment_proof) }}"
+                                                    alt="Payment Proof" width="100"></td>
+                                            <td>
+                                                <form action="{{ route('admin.transaksi.destroy', $transaction->id) }}"
+                                                    method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                        onclick="return confirm('Apakah Anda yakin ingin menghapus transaksi ini?')">Hapus</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
 
                             </table>
+                            <a href="{{ route('admin.transaksi.index') }}" class="btn btn-outline-secondary">Kembali ke Daftar Pengguna</a>
                         </div>
                     </div>
                 </div>

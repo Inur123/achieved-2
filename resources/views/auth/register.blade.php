@@ -8,13 +8,50 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('template/assets/images/logos/favicon.png') }}" />
     <link rel="stylesheet" href="{{ asset('template/assets/css/styles.min.css') }}" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-</head>
+    <style>
+        /* Loading screen styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #5D87FF;
+            /* Green success color */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
+        <div id="loading-screen">
+            <div class="spinner"></div>
+        </div>
         <div
             class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
             <div class="d-flex align-items-center justify-content-center w-100">
@@ -74,23 +111,26 @@
                                     <div class="mb-3">
                                         <label for="exampleInputNama1" class="form-label">Nama Lengkap</label>
                                         <input type="text" class="form-control" placeholder="Nama Lengkap"
-                                            id="exampleInputNama1" aria-describedby="namelHelp" name="name"  value="{{ old('name') }}" required>
+                                            id="exampleInputNama1" aria-describedby="namelHelp" name="name"
+                                            value="{{ old('name') }}" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email</label>
                                         <input type="email" class="form-control" placeholder="Email"
-                                            id="exampleInputEmail1" aria-describedby="emailHelp" name="email"  value="{{ old('email') }}" required>
+                                            id="exampleInputEmail1" aria-describedby="emailHelp" name="email"
+                                            value="{{ old('email') }}" required>
                                     </div>
                                     <div class="mb-3 position-relative">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
                                         <div class="position-relative">
                                             <input type="password" class="form-control pe-5" placeholder="Password"
-                                                id="exampleInputPassword1"  name="password" required>
+                                                id="exampleInputPassword1" name="password" required>
                                             <i class="fa fa-eye-slash position-absolute top-50 end-0 me-3 translate-middle-y"
                                                 id="togglePassword" style="cursor: pointer;"></i>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-2 rounded-2">Daftar</button>
+                                    <button type="submit"
+                                        class="btn btn-primary w-100 py-8 fs-4 mb-2 rounded-2">Daftar</button>
 
                                     <div class="d-flex align-items-center mb-1">
                                         <hr class="flex-grow-1">
@@ -128,6 +168,13 @@
                 eyeIcon.classList.remove("fa-eye");
                 eyeIcon.classList.add("fa-eye-slash");
             }
+        });
+    </script>
+
+    <script>
+        // Hide loading screen once the page is fully loaded
+        window.addEventListener("load", function() {
+            document.getElementById("loading-screen").style.display = "none";
         });
     </script>
 </body>
