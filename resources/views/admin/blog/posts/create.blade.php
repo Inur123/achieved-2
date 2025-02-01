@@ -115,8 +115,8 @@
                             </div>
 
                             {{-- Submit Button --}}
-                            <a href="{{ route('blog.posts.index') }}" class="btn btn-secondary">Back</a>
-                            <button type="submit" class="btn btn-primary">Create Post</button>
+                            <a href="{{ route('blog.posts.index') }}" class="btn btn-outline-secondary">Back</a>
+                            <button type="submit" class="btn btn-outline-primary">Create Post</button>
                         </div>
                     </div>
                 </form>

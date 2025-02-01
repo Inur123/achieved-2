@@ -70,8 +70,8 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Update Category</button>
-                <a href="{{ route('blog.categories.index') }}" class="btn btn-secondary">Back</a>
+                <button type="submit" class="btn btn-outline-primary">Update Category</button>
+                <a href="{{ route('blog.categories.index') }}" class="btn btn-outline-secondary">Back</a>
             </div>
         </form>
     </div>

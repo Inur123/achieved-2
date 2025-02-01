@@ -27,7 +27,7 @@
 
     <div class="container-fluid">
         <h4 class="mb-3">Products</h4>
-        <a href="{{ route('products.create') }}" class="btn btn-success mb-3">Add Product</a>
+        <a href="{{ route('products.create') }}" class="btn btn-outline-success mb-3">Add Product</a>
         <div class="card">
             <div class="card-body">
                 <table class="table table-bordered">
@@ -62,11 +62,11 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary">Edit</a>
+                                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-primary">Edit</a>
                                     <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>

@@ -61,7 +61,7 @@
 
 
         {{-- Create Button --}}
-        <a href="{{ route('blog.posts.create') }}" class="btn btn-primary mb-3">Create New Post</a>
+        <a href="{{ route('blog.posts.create') }}" class="btn btn-outline-primary mb-3">Create New Post</a>
 
         {{-- Post Table --}}
         <div class="table-responsive">
@@ -96,12 +96,12 @@
                             </td>
                             <td>{{ $post->is_published ? 'Yes' : 'No' }}</td>
                             <td>
-                                <a href="{{ route('blog.posts.edit', $post->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="{{ route('blog.posts.edit', $post->id) }}" class="btn btn-outline-warning btn-sm">Edit</a>
 
                                 <form action="{{ route('blog.posts.destroy', $post->id) }}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                                    <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
                         </tr>

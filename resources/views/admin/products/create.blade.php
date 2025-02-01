@@ -38,8 +38,8 @@
                     <option value="0">Inactive</option>
                 </select>
             </div>
-            <a href="{{ route('products.index') }}" class="btn btn-secondary">Back</a>
-            <button type="submit" class="btn btn-success">Save</button>
+            <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">Back</a>
+            <button type="submit" class="btn btn-outline-success">Save</button>
         </form>
     </div>
 @endsection

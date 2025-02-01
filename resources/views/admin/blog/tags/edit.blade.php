@@ -54,7 +54,7 @@
     {{-- Content --}}
     <div class="container-fluid">
         <h4 class="mb-3">Edit Tag</h4>
-        <a href="{{ route('blog.tags.index') }}" class="btn btn-primary mb-3">Back to Tags</a>
+
 
         <div class="card">
             <div class="card-body">
@@ -65,7 +65,8 @@
                         <label for="name" class="form-label">Name</label>
                         <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $tag->name) }}" required>
                     </div>
-                    <button type="submit" class="btn btn-success">Update Tag</button>
+                    <a href="{{ route('blog.tags.index') }}" class="btn btn-outline-primary">Back to Tags</a>
+                    <button type="submit" class="btn btn-outline-success">Update Tag</button>
                 </form>
             </div>
         </div>

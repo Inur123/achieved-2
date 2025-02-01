@@ -32,8 +32,8 @@
                             </div>
 
                             <div class="flex justify-between mt-3">
-                                <a href="{{ route('blog.authors.index') }}" class="btn btn-secondary">Back</a>
-                                <button type="submit" class="btn btn-primary ml-3">Save Author</button>
+                                <a href="{{ route('blog.authors.index') }}" class="btn btn-outline-secondary">Back</a>
+                                <button type="submit" class="btn btn-outline-primary ml-3">Save Author</button>
                             </div>
                         </form>
                     </div>

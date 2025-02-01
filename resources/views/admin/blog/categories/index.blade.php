@@ -55,7 +55,7 @@
     {{-- Content --}}
     <div class="container-fluid">
         <h4 class="mb-3">Categories</h4>
-        <a href="{{ route('blog.categories.create') }}" class="btn btn-success mb-3">Add Category</a>
+        <a href="{{ route('blog.categories.create') }}" class="btn btn-outline-success mb-3">Add Category</a>
         <div class="card">
             <div class="card-body">
                 <table class="table table-bordered">
@@ -74,11 +74,11 @@
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->slug }}</td>
                                 <td>
-                                    <a href="{{ route('blog.categories.edit', $category->id) }}" class="btn btn-primary">Edit</a>
+                                    <a href="{{ route('blog.categories.edit', $category->id) }}" class="btn btn-outline-primary">Edit</a>
                                     <form action="{{ route('blog.categories.destroy', $category->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>

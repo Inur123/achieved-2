@@ -120,7 +120,7 @@
                             </div>
 
                             {{-- Submit Button --}}
-                            <button type="submit" class="btn btn-primary">Update Post</button>
+                            <button type="submit" class="btn btn-outline-primary">Update Post</button>
                         </div>
                     </div>
                 </form>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApprovedTransactionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\AuthController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Auth\SocialiteController;
 
 Route::get('/', function () {
@@ -65,13 +67,25 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     //products
     Route::resource('products', ProductController::class);
-
+    //approved transactions
+    Route::get('approved_transactions', [ApprovedTransactionController::class, 'index'])->name('approved_transactions.index');
+    Route::post('approved_transactions/{id}', [ApprovedTransactionController::class, 'approve'])->name('approved_transactions.approve');
+    Route::delete('approved_transactions/{id}', [ApprovedTransactionController::class, 'destroy'])->name('approved_transactions.destroy');
+    Route::get('approved_transactions/{id}', [ApprovedTransactionController::class, 'show'])->name('approved_transactions.show');
 
 
 
 });
 
 
+
+// routes/web.php
+Route::prefix('user')->middleware('auth')->group(function () {
+    Route::get('transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
+    Route::post('transactions', [TransactionController::class, 'store'])->name('transactions.store');
+    Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
+
+});
 
 //laravel-socialite
 Route::get('/auth/redirect',[SocialiteController::class,'redirect']);

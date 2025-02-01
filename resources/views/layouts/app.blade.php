@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="{{ asset('template/assets/css/styles.min.css') }}" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
+
+
 </head>
 
 <body>

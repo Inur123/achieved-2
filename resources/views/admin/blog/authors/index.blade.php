@@ -57,7 +57,7 @@
         <div class="row">
             <div class="col-12">
                 <h4 class="mb-3">Data Author</h4>
-                <a href="{{ route('blog.authors.create') }}" class="btn btn-success mb-3">Add Author</a>
+                <a href="{{ route('blog.authors.create') }}" class="btn btn-outline-success mb-3">Add Author</a>
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -87,12 +87,12 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('blog.authors.edit', $author->id) }}"
-                                                    class="btn btn-primary">Edit</a>
+                                                    class="btn btn-outline-primary">Edit</a>
                                                 <form action="{{ route('blog.authors.destroy', $author->id) }}"
                                                     method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"
+                                                    <button type="submit" class="btn btn-outline-danger"
                                                         onclick="return confirm('Are you sure?')">Delete</button>
                                                 </form>
                                             </td>

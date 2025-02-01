@@ -64,8 +64,8 @@
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
             </div>
             <div class="form-group">
-                <a href="{{ route('blog.categories.index') }}" class="btn btn-secondary">Back</a>
-                <button type="submit" class="btn btn-primary">Save Category</button>
+                <a href="{{ route('blog.categories.index') }}" class="btn btn-outline-secondary">Back</a>
+                <button type="submit" class="btn btn-outline-primary">Save Category</button>
             </div>
         </form>
     </div>
