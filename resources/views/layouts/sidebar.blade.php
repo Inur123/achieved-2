@@ -69,6 +69,15 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item {{ Request::is('products.index') ? 'active' : '' }}">
+                    <a class="sidebar-link {{ request()->routeIs('products.*') ? 'active' : '' }}" href="{{ route('products.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-package"></i>  <!-- Icon for Product -->
+                        </span>
+                        <span class="hide-menu">Products</span>
+                    </a>
+                </li>
+
                 @endif
             </ul>
 

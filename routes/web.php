@@ -5,6 +5,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\SocialiteController;
 
@@ -61,6 +62,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::put('/tags/{tag}', [TagController::class, 'update'])->name('blog.tags.update');
     Route::get('/tags/create', [TagController::class, 'create'])->name('blog.tags.create');
     Route::get('/tags', [TagController::class, 'index'])->name('blog.tags.index');
+
+    //products
+    Route::resource('products', ProductController::class);
+
 
 
 
