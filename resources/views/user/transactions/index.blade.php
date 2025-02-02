@@ -41,6 +41,7 @@
                             <th>Tanggal Transaksi</th>
                             <th>Status</th>
                             <th>Bukti Pembayaran</th>
+                            <th>Invoice</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,14 +58,18 @@
                                     @if ($transaction->status == 'pending')
                                         <span class="badge bg-warning">Pending</span>
                                     @elseif ($transaction->status == 'paid')
-                                        <span class="badge bg-success">Paid</span>
+                                        <span class="badge bg-primary">Paid</span>
                                     @else
-                                        <span class="badge bg-info">Approve</span>
+                                        <span class="badge bg-success">Approve</span>
                                     @endif
                                 </td>
                                 <td><a href="{{ Storage::url($transaction->payment_proof) }}" target="_blank">Lihat Bukti</a></td>
 
-
+                                <td>
+                                    @if ($transaction->status == 'approved')
+                                        <a href="{{ route('invoices.show', $transaction->id) }}" class="btn btn-primary btn-sm">Lihat Invoice</a>
+                                    @endif
+                                </td>
 
                             </tr>
                         @endforeach

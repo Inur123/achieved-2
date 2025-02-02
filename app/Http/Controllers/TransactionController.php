@@ -4,6 +4,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+
+
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\ProductTransaction;
@@ -71,10 +74,28 @@ class TransactionController extends Controller
         return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil dibuat.');
     }
 
+    public function checkout($product_id)
+    {
+        $product = Product::findOrFail($product_id);
+        return view('user.transactions.checkout', compact('product'));
+    }
 
+     // Generate Invoice for Approved Transaction
+     public function generateInvoice($transaction_id)
+     {
+         $transaction = Transaction::findOrFail($transaction_id);
 
+         // Ensure the transaction status is "approved" before generating the invoice
+         if ($transaction->status !== 'approved') {
+             return redirect()->route('transactions.index')->with('error', 'Transaksi belum disetujui.');
+         }
 
+         // Instantiate the PDF facade and load the view
+         $pdf = Pdf::loadView('user.transactions.invoice', compact('transaction'));
 
+         // Stream the PDF to the browser (this will display the PDF inline)
+         return $pdf->stream('invoice_' . $transaction->id . '.pdf');
+     }
 
 
 }

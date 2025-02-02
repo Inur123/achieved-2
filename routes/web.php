@@ -18,12 +18,11 @@ use App\Http\Controllers\ApprovedTransactionController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ProductSalesController;
 
-Route::get('/', function () {
-    return view('/login');
-});
+// Route::get('/', function () {
+//     return view('/login');
+// });
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('login', [AuthController::class, 'login'])->name('login.submit');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
@@ -108,6 +107,10 @@ Route::prefix('user')->middleware('auth')->group(function () {
     Route::get('transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
     Route::post('transactions', [TransactionController::class, 'store'])->name('transactions.store');
     Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
+    Route::get('/checkout/{product_id}', [TransactionController::class, 'checkout'])->name('checkout');
+
+    Route::get('/transactions/{transaction_id}/invoice', [TransactionController::class, 'generateInvoice'])->name('invoices.show');
+
 });
 
 //laravel-socialite
