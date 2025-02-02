@@ -1,7 +1,7 @@
 <style>
     .app-header {
-    border-bottom: 1px solid #007bff;
-}
+        border-bottom: 1px solid #007bff;
+    }
 </style>
 
 <header class="app-header">
@@ -21,27 +21,39 @@
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                <span id="current-time" class="text-primary"></span>
+                <span id="current-time" class="text-primary d-none d-md-inline"></span>
                 <li class="nav-item dropdown">
                     @php
-    $user = Auth::user(); // Get the authenticated user
-    $userName = $user->name; // Get the user's name
-    $initials = strtoupper(implode('', array_map(function($word) { return $word[0]; }, explode(' ', $userName)))); // Generate initials from the name
-    $initials = substr($initials, 0, 2); // Get only the first 2 characters of initials
-    $imageUrl = $user->profile_image ? asset('storage/'.$user->profile_image) : asset('template/assets/images/profile/user-1.jpg'); // Use the profile image or fallback
-@endphp
+                        $user = Auth::user(); // Get the authenticated user
+                        $userName = $user->name; // Get the user's name
+$initials = strtoupper(
+    implode(
+        '',
+        array_map(function ($word) {
+            return $word[0];
+        }, explode(' ', $userName)),
+    ),
+); // Generate initials from the name
+$initials = substr($initials, 0, 2); // Get only the first 2 characters of initials
+$imageUrl = $user->profile_image
+    ? asset('storage/' . $user->profile_image)
+    : asset('template/assets/images/profile/user-1.jpg'); // Use the profile image or fallback
+                    @endphp
 
-<a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-    @if($user->profile_image && file_exists(public_path('storage/'.$user->profile_image)))
-        <!-- Display user's image if exists -->
-        <img src="{{ $imageUrl }}" alt="Profile Image" width="35" height="35" class="rounded-circle">
-    @else
-        <!-- Fallback to initials if no image exists -->
-        <div style="width: 35px; height: 35px; background-color: #ccc; color: #fff; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-            {{ $initials }}
-        </div>
-    @endif
-</a>
+                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        @if ($user->profile_image && file_exists(public_path('storage/' . $user->profile_image)))
+                            <!-- Display user's image if exists -->
+                            <img src="{{ $imageUrl }}" alt="Profile Image" width="35" height="35"
+                                class="rounded-circle">
+                        @else
+                            <!-- Fallback to initials if no image exists -->
+                            <div
+                                style="width: 35px; height: 35px; background-color: #ccc; color: #fff; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+                                {{ $initials }}
+                            </div>
+                        @endif
+                    </a>
 
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
@@ -57,11 +69,10 @@
                                 <i class="ti ti-list-check fs-6"></i>
                                 <p class="mb-0 fs-3">My Task</p>
                             </a>
-                            <a href="javascript:void(0)"
-   id="logout-link"
-   class="btn btn-outline-primary mx-3 mt-2 d-block">
-    Logout
-</a>
+                            <a href="javascript:void(0)" id="logout-link"
+                                class="btn btn-outline-primary mx-3 mt-2 d-block">
+                                Logout
+                            </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>

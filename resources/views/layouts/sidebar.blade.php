@@ -9,7 +9,9 @@
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="./index.html" class="text-nowrap logo-img">
-                <img src="{{ asset('template/assets/images/logos/dark-logo.svg') }}" width="180" alt="" />
+                <img src="{{ asset('template/assets/images/logos/logo-3.svg') }}"
+                style="width: 200px; height: auto;"
+                alt="">
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
