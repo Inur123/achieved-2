@@ -178,6 +178,15 @@
             document.getElementById("loading-screen").style.display = "none";
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let toastElements = document.querySelectorAll('.toast');
+            toastElements.forEach(function(toastEl) {
+                let bsToast = new bootstrap.Toast(toastEl, { delay: 3000 });
+                bsToast.show();
+            });
+        });
+    </script>
 </body>
 
 </html>
