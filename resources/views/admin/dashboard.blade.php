@@ -10,35 +10,42 @@
     @include('layouts.header')
 @endsection
 
+
 @section('content')
     <div class="container-fluid">
-        <div id="toastContainer" style="position: fixed; top: 10px; right: 10px; z-index: 1050;">
-            @if (session('error'))
-                <div class="toast align-items-center text-white bg-danger border-0 show" role="alert"
-                    aria-live="assertive" aria-atomic="true">
-                    <div class="d-flex">
-                        <div class="toast-body">
-                            {{ session('error') }}
-                        </div>
-                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                            aria-label="Close"></button>
-                    </div>
-                </div>
-            @endif
+        @if ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: `{!! implode('<br>', $errors->all()) !!}`,
+                confirmButtonColor: '#d33'
+            });
+        </script>
+    @endif
 
-            @if (session('success'))
-                <div class="toast align-items-center text-white bg-success border-0 show" role="alert"
-                    aria-live="assertive" aria-atomic="true">
-                    <div class="d-flex">
-                        <div class="toast-body">
-                            {{ session('success') }}
-                        </div>
-                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                            aria-label="Close"></button>
-                    </div>
-                </div>
-            @endif
-        </div>
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ session('error') }}",
+                confirmButtonColor: '#d33'
+            });
+        </script>
+    @endif
+
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: "{{ session('success') }}",
+                confirmButtonColor: '#3085d6'
+            });
+        </script>
+    @endif
+
         <!-- Row 1: Total Post, Total Category, Total Author, Total Tags -->
         <div class="row">
             <h1 class="fs-7">Blog</h1>
@@ -121,15 +128,7 @@
         </div>
     </div>
 @endsection
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let toastElements = document.querySelectorAll('.toast');
-        toastElements.forEach(function(toastEl) {
-            let bsToast = new bootstrap.Toast(toastEl, { delay: 3000 });
-            bsToast.show();
-        });
-    });
-</script>
+
 @section('footer')
     @include('layouts.footer')
 @endsection
