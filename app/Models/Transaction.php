@@ -19,6 +19,7 @@ class Transaction extends Model
         return $this->belongsTo(Product::class);
     }
 
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -28,4 +29,10 @@ class Transaction extends Model
     {
         return $this->hasOne(ApprovedTransaction::class);
     }
+
+    public function productTransactions()
+    {
+        return $this->hasMany(ProductTransaction::class);
+    }
+
 }

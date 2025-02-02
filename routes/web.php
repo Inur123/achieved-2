@@ -4,13 +4,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AdminTransaksiController;
+
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\ApprovedTransactionController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\ProductSalesController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,14 +29,14 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.su
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 //auth
 Route::middleware('auth')->group(function () {
-    Route::get('user/dashboard', function () {
-        return view('user.dashboard');
-    })->name('user.dashboard');
+    // User Dashboard Route
+    Route::get('user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
 
-    Route::get('admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    // Admin Dashboard Route
+    Route::get('admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
+
+
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     // Authors Routes
@@ -66,6 +72,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     //products
     Route::resource('products', ProductController::class);
+    Route::get('/admin/product-sales', [ProductSalesController::class, 'index'])->name('product.sales');
+
+
+
     //approved transactions
     Route::get('approved_transactions', [ApprovedTransactionController::class, 'index'])->name('approved_transactions.index');
     Route::post('approved_transactions/{id}', [ApprovedTransactionController::class, 'approve'])->name('approved_transactions.approve');
@@ -76,6 +86,18 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('transaksi', [AdminTransaksiController::class, 'index'])->name('admin.transaksi.index');
     Route::get('transaksi/{userId}/detail', [AdminTransaksiController::class, 'showDetail'])->name('admin.transaksi.detail');
     Route::delete('transaksi/{transaction}', [AdminTransaksiController::class, 'destroy'])->name('admin.transaksi.destroy');
+
+    // User Routes
+    Route::get('user/data', [UserController::class, 'index'])->name('admin.user.index');
+    Route::get('user/data/create', [UserController::class, 'create'])->name('admin.user.create');
+    Route::post('user/data', [UserController::class, 'store'])->name('admin.user.store');
+    Route::get('user/data/{user}', [UserController::class, 'show'])->name('admin.user.show');
+    Route::delete('user/data/{user}', [UserController::class, 'destroy'])->name('admin.user.destroy');
+    Route::get('user/data/{user}/edit', [UserController::class, 'edit'])->name('admin.user.edit');
+    Route::put('user/data/{user}', [UserController::class, 'update'])->name('admin.user.update');
+
+
+
 });
 
 

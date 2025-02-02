@@ -26,8 +26,8 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Home</span>
                 </li>
-                <li class="sidebar-item {{ Request::is('index') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="dashboard" aria-expanded="false">
+                <li class="sidebar-item {{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('admin.dashboard') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
@@ -89,6 +89,7 @@
                             <span class="hide-menu">Products</span>
                         </a>
                     </li>
+
                     <li class="sidebar-item {{ Request::is('admin/approved-transactions') ? 'active' : '' }}">
                         <a class="sidebar-link {{ request()->routeIs('approved_transactions.*') ? 'active' : '' }}"
                             href="{{ route('approved_transactions.index') }}" aria-expanded="false">
@@ -108,21 +109,44 @@
                             <span class="hide-menu">Admin Transaksi</span>
                         </a>
                     </li>
+                    <li class="sidebar-item {{ Request::is('admin/product-sales') ? 'active' : '' }}">
+                        <a class="sidebar-link {{ request()->routeIs('admin.product.sales') ? 'active' : '' }}"
+                            href="{{ route('product.sales') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-shopping-cart"></i> <!-- Icon for Product Sales -->
+                            </span>
+                            <span class="hide-menu">Product Sales</span>
+                        </a>
+                    </li>
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Pengguna</span>
+                    </li>
+                    <li class="sidebar-item {{ Request::is('admin/user*') ? 'active' : '' }}">
+                        <a class="sidebar-link {{ Request::is('admin/user*') ? 'active' : '' }}"
+                            href="{{ route('admin.user.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-user"></i> <!-- Icon for Admin User -->
+                            </span>
+                            <span class="hide-menu">Admin User</span>
+                        </a>
+                    </li>
+
 
                 @endif
                 @if (auth()->check() && auth()->user()->role_id === 2)
-                {{-- <li class="nav-small-cap">
+                <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Home</span>
                 </li>
-                <li class="sidebar-item {{ Request::is('index') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="dashboard" aria-expanded="false">
+                <li class="sidebar-item {{ Request::routeIs('user.dashboard') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('user.dashboard') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
                         <span class="hide-menu">Dashboard</span>
                     </a>
-                </li> --}}
+                </li>
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Transaksi</span>
