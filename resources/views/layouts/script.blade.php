@@ -7,6 +7,7 @@
 <script src="{{ asset('template/assets/js/dashboard.js') }}"></script>
 
 
+
 <script>
     // Hide loading screen once the page is fully loaded
     window.addEventListener("load", function() {

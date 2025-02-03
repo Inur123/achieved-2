@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Riwayat Transaksi ')
+@section('title', 'Pilih Produk untuk Dibeli')
 
 @section('sidebar')
     @include('layouts.sidebar')
@@ -11,80 +11,22 @@
 @endsection
 
 @section('content')
-    <div id="toastContainer" style="position: fixed; top: 10px; right: 10px; z-index: 1050;">
-        @if (session('success'))
-            <div class="toast align-items-center text-white bg-success border-0 show" role="alert">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        {{ session('success') }}
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
-                        data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
-    </div>
-
     <div class="container-fluid">
-        <h4 class="mb-3">Riwayat Transaksi</h4>
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Nomor Telepon</th>
-                            <th>Produk</th>
-                            <th>Harga</th>
-                            <th>Tanggal Transaksi</th>
-                            <th>Status</th>
-                            <th>Bukti Pembayaran</th>
-                            <th>Invoice</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($transactions as $transaction)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $transaction->name }}</td>
-                                <td>{{ $transaction->email }}</td>
-                                <td>{{ $transaction->phone_number }}</td>
-                                <td>{{ $transaction->product->name }}</td>
-                                <td>Rp {{ number_format($transaction->product->price, 0, ',', '.') }}</td>
-                                <td>{{ $transaction->created_at->format('d-m-Y H:i') }}</td> <!-- Tanggal transaksi -->
-                                <td>
-                                    @if ($transaction->status == 'pending')
-                                        <span class="badge bg-warning">Pending</span>
-                                    @elseif ($transaction->status == 'paid')
-                                        <span class="badge bg-primary">Paid</span>
-                                    @else
-                                        <span class="badge bg-success">Approve</span>
-                                    @endif
-                                </td>
-                                <td><a href="{{ Storage::url($transaction->payment_proof) }}" target="_blank">Lihat Bukti</a></td>
-
-                                <td>
-                                    @if ($transaction->status == 'approved')
-                                        <a href="{{ route('invoices.show', $transaction->id) }}" class="btn btn-primary btn-sm">Lihat Invoice</a>
-                                    @endif
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+        <h4 class="mb-3">Pilih Produk untuk Dibeli</h4>
+        <div class="row">
+            @foreach ($products as $product)
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $product->name }}</h5>
+                            <p class="card-text">{{ Str::limit($product->description, 100) }}</p>
+                            <h6 class="text-primary">Rp {{ number_format($product->price, 0, ',', '.') }}</h6>
+                            <a href="{{ route('checkout', ['product_id' => $product->id]) }}" class="btn btn-outline-primary w-100">Beli Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let toastElements = document.querySelectorAll('.toast');
-            toastElements.forEach(function(toastEl) {
-                let bsToast = new bootstrap.Toast(toastEl, { delay: 3000 });
-                bsToast.show();
-            });
-        });
-    </script>
 @endsection

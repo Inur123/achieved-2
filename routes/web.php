@@ -8,15 +8,16 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\AdminTransaksiController;
 
+use App\Http\Controllers\AdminTransaksiController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\Admin\ProductSalesController;
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\ApprovedTransactionController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Admin\ProductSalesController;
 
 // Route::get('/', function () {
 //     return view('/login');
@@ -95,22 +96,20 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('user/data/{user}', [UserController::class, 'destroy'])->name('admin.user.destroy');
     Route::get('user/data/{user}/edit', [UserController::class, 'edit'])->name('admin.user.edit');
     Route::put('user/data/{user}', [UserController::class, 'update'])->name('admin.user.update');
-
-
-
 });
 
 
 
 // routes/web.php
 Route::prefix('user')->middleware('auth')->group(function () {
-    Route::get('transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
-    Route::post('transactions', [TransactionController::class, 'store'])->name('transactions.store');
+
+
     Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
-    Route::get('/checkout/{product_id}', [TransactionController::class, 'checkout'])->name('checkout');
 
-    Route::get('/transactions/{transaction_id}/invoice', [TransactionController::class, 'generateInvoice'])->name('invoices.show');
-
+    Route::get('/checkout/{product_id}', [CheckoutController::class, 'showCheckoutPage'])->name('checkout');
+    Route::get('/transactions/{transactionId}', [CheckoutController::class, 'showTransactionPage'])->name('transactions.show');
+    Route::get('/user/checkout/success/{id}', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::post('/payment-success', [CheckoutController::class, 'paymentNotification'])->name('payment.success');
 });
 
 //laravel-socialite

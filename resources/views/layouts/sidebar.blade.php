@@ -151,7 +151,7 @@
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Transaksi</span>
                     </li>
-                    <li class="sidebar-item {{ request()->routeIs('transactions.create') || request()->is('user/checkout/*') ? 'active' : '' }}">
+                    {{-- <li class="sidebar-item {{ request()->routeIs('transactions.create') || request()->is('user/checkout/*') ? 'active' : '' }}">
                         <a class="sidebar-link {{ request()->routeIs('transactions.create') || request()->is('user/checkout/*') ? 'active' : '' }}"
                             href="{{ route('transactions.create') }}" aria-expanded="false">
                             <span>
@@ -159,7 +159,7 @@
                             </span>
                             <span class="hide-menu">Buat Transaksi</span>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li class="sidebar-item {{ request()->routeIs('transactions.index') ? 'active' : '' }}">
                         <a class="sidebar-link {{ request()->routeIs('transactions.index') ? 'active' : '' }}"
@@ -167,7 +167,7 @@
                             <span>
                                 <i class="ti ti-history"></i> <!-- Icon for Transaction History -->
                             </span>
-                            <span class="hide-menu">Riwayat Transaksi</span>
+                            <span class="hide-menu">Transaksi</span>
                         </a>
                     </li>
                 @endif
